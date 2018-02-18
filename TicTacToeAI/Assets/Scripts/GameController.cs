@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class GameController : GameElement {
 
-	public GameModel game;
+	private GameModel game;
+	private GameView view;
 
 	// Use this for initialization
 	void Start () {
-		
+		game = app.model;
+		view = app.view;
+
+		view.DrawBoard (game.Board);
 	}
 
 	public bool Move(int tile){

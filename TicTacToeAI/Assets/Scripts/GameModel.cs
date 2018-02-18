@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿//using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +9,8 @@ public class GameModel : GameElement {
 	public Player Player2;
 	public Player NextMove;
 	public int[] Score;
+	public int P1 = 1;
+	public int P2 = 4;
 
 	public int[][] Lines = new int[][]
 	{
@@ -26,10 +28,12 @@ public class GameModel : GameElement {
 
 	// Use this for initialization
 	void Start () {
-		Board = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-		Player1 = new Player (true, "X", 1);
-		Player2 = new Player (true, "O", 4);
+
+		Player1 = new Player (true, app.view.xSprite, P1);
+		Player2 = new Player (true, app.view.oSprite, P2);
+
+		Board = new int[] { P1, 0, P2, 0, 0, 0, P2, P1, 0 };
 		NextMove = Player1;
-		TotalMoves = 0;
+		TotalMoves = 4;
 	}
 }

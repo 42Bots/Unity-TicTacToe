@@ -1,16 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class Player {
 
-	public bool Human = true;
-	public string Sign = "X";
-	public int Value = 1;
+	public bool Human;
+	public Sprite Sign;
+	public int Value;
 
-	public Player(bool human, string sign, int value) {
+	public Player(bool human, Sprite sign, int value) {
 		Human = human;
 		Sign = sign;
 		Value = value;
 	}
-
 }

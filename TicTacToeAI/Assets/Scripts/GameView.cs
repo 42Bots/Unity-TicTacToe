@@ -5,18 +5,15 @@ using UnityEngine;
 public class GameView : GameElement {
 
 	public float spacing = 1.2f;
-	int boardSize;
+	int[] board;
 
-	public GameObject XPrefab;
-	public GameObject OPrefab;
-	public GameObject BlankPrefab;
-	//public GameObject CanvasPrefab;
-
+	public Sprite oSprite;
+	public Sprite xSprite;
+	public Sprite blankSprite;
+	public GameObject TilePrefab;
 
 	// Use this for initialization
 	void Start () {
-		boardSize = 9;
-		GenerateGrid ();
 	}
 	
 	// Update is called once per frame
@@ -24,19 +21,31 @@ public class GameView : GameElement {
 
 	}
 
-	void GenerateGrid() {
+	public void DrawBoard(int[] board) {
 		//GameObject myCanvas = Instantiate (CanvasPrefab, new Vector2 (0, 0), Quaternion.identity, this.transform);
 		//the Canvas needs to have the render mode in world space to ove it as a regular obect
 
-		for (int tile = 0; tile < boardSize; tile++) {
+		for (int tile = 0; tile < board.Length; tile++) {
 			float tileX = ((tile % 3) - 1.0f) * spacing;
-			float tileY = ((tile / 3) - 1.0f) * spacing;
+			float tileY = -((tile / 3) - 1.0f) * spacing; // first tile top left
 
-			GameObject myTile = Instantiate (BlankPrefab, new Vector2 (tileX, tileY), Quaternion.identity, this.transform);
+			GameObject myTile = Instantiate (TilePrefab, new Vector2 (tileX, tileY), Quaternion.identity, this.transform);
 			myTile.name = "Tile-" + tile;
+
+			if (board [tile] == app.model.Player1.Value) {
+				myTile.GetComponentInChildren<SpriteRenderer> ().sprite = app.model.Player1.Sign;
+			} 
+
+			else if (board [tile] == app.model.Player2.Value) {
+				myTile.GetComponentInChildren<SpriteRenderer> ().sprite = app.model.Player2.Sign;
+			} 
+
+			else {
+				myTile.GetComponentInChildren<SpriteRenderer> ().sprite = blankSprite;
+			}
 		}
 	}
-
+		
 	// To-Do:
 	// Create a generic tile view with a scrpipt that will send an event when a tile is clicked
 	// Also, the actual sprite should be changed, so we should only need one prefab
