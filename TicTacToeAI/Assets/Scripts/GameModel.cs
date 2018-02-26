@@ -10,7 +10,7 @@ public class GameModel : GameElement {
 	public Player NextMove;
 	public int[] Score;
 	public int P1 = 1;
-	public int P2 = 4;
+	public int P2 = 2;
 
 	public int[][] Lines = new int[][]
 	{

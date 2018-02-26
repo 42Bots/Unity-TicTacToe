@@ -18,13 +18,15 @@ public class GameController : GameElement {
 	public bool Move(int tile){
 		bool vallidMove = false;
 
-		if (game.Board[tile] == 0) {
+		if (game.Board[tile] == 0 && checkBoard(game) == -1) {
 			game.Board[tile] = game.NextMove.Value;
 			UpdateNextMove ();
 			game.TotalMoves++;
 			view.DrawBoard (game.Board);
+			vallidMove = true;
 			checkBoard (game);
 		}
+		Debug.Log ("Game value " + checkBoard (game));
 		return vallidMove;
 	}
 
@@ -39,7 +41,7 @@ public class GameController : GameElement {
 	}
 
 	public int checkBoard(GameModel game) {
-		int status = 0;
+		int status = -1;
 
 		for (int i = 0; i < game.Lines.Length; i++) {
 			int sum = 0;
@@ -49,17 +51,17 @@ public class GameController : GameElement {
 				sum = sum + game.Board[tile];
 			}
 
-			Debug.Log ("Line: " + i + " Sum: " + sum);
+			//Debug.Log ("Line: " + i + " Sum: " + sum);
 
 			if (sum == (3 * game.Player1.Value)) {
 				status = game.Player1.Value;
-				Debug.Log ("Winner: " + game.Player1.Value);
+				//Debug.Log ("Winner: " + game.Player1.Value);
 				return status;
 			} 
 
 			if (sum == (3 * game.Player2.Value)) {
 				status = game.Player2.Value;
-				Debug.Log ("Winner: " + game.Player1.Value);
+				//Debug.Log ("Winner: " + game.Player2.Value);
 				return status;
 			}
 		}
@@ -67,7 +69,7 @@ public class GameController : GameElement {
 		//check for draw
 		if (game.TotalMoves == 9) {
 			Debug.Log ("Game is a draw!");
-			status = -1;
+			status = 0;
 		}
 
 		return status;
