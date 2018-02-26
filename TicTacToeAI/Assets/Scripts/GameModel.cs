@@ -32,8 +32,8 @@ public class GameModel : GameElement {
 		Player1 = new Player (true, app.view.xSprite, P1);
 		Player2 = new Player (true, app.view.oSprite, P2);
 
-		Board = new int[] { P1, 0, P2, 0, 0, 0, P2, P1, 0 };
+		Board = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 		NextMove = Player1;
-		TotalMoves = 4;
+		TotalMoves = 0;
 	}
 }

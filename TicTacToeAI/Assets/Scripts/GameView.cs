@@ -12,8 +12,11 @@ public class GameView : GameElement {
 	public Sprite blankSprite;
 	public GameObject TilePrefab;
 
+	private GameObject[] tiles;
+
 	// Use this for initialization
 	void Start () {
+		
 	}
 	
 	// Update is called once per frame
@@ -21,27 +24,53 @@ public class GameView : GameElement {
 
 	}
 
+	public void InitializeBoard(int[] board){
+		tiles = new GameObject[board.Length];
+		for (int tile = 0; tile < board.Length; tile++) {
+			float tileX = ((tile % 3) - 1.0f) * spacing;
+			float tileY = -((tile / 3) - 1.0f) * spacing; // first tile top left
+
+			tiles [tile] = Instantiate (TilePrefab, new Vector2 (tileX, tileY), Quaternion.identity, this.transform);
+			tiles [tile].name = ("Tile-" + tile);
+			tiles [tile].GetComponent<MyTile> ().id = tile;
+
+//			if (board [tile] == app.model.Player1.Value) {
+//				tiles [tile].GetComponentInChildren<SpriteRenderer> ().sprite = app.model.Player1.Sign;
+//				tiles [tile].GetComponent<MyTile> ().value = app.model.Player1.Value;
+//			} 
+//
+//			else if (board [tile] == app.model.Player2.Value) {
+//				tiles [tile].GetComponentInChildren<SpriteRenderer> ().sprite = app.model.Player2.Sign;
+//				tiles [tile].GetComponent<MyTile> ().value = app.model.Player1.Value;
+//			} 
+//
+//			else {
+//				tiles [tile].GetComponentInChildren<SpriteRenderer> ().sprite = blankSprite;
+//				tiles [tile].GetComponent<MyTile> ().value = 0;
+//			}
+		}
+
+		DrawBoard (board);
+	}
+
 	public void DrawBoard(int[] board) {
 		//GameObject myCanvas = Instantiate (CanvasPrefab, new Vector2 (0, 0), Quaternion.identity, this.transform);
 		//the Canvas needs to have the render mode in world space to ove it as a regular obect
 
 		for (int tile = 0; tile < board.Length; tile++) {
-			float tileX = ((tile % 3) - 1.0f) * spacing;
-			float tileY = -((tile / 3) - 1.0f) * spacing; // first tile top left
-
-			GameObject myTile = Instantiate (TilePrefab, new Vector2 (tileX, tileY), Quaternion.identity, this.transform);
-			myTile.name = "Tile-" + tile;
-
 			if (board [tile] == app.model.Player1.Value) {
-				myTile.GetComponentInChildren<SpriteRenderer> ().sprite = app.model.Player1.Sign;
+				tiles [tile].GetComponentInChildren<SpriteRenderer> ().sprite = app.model.Player1.Sign;
+				tiles [tile].GetComponent<MyTile> ().value = app.model.Player1.Value;
 			} 
 
 			else if (board [tile] == app.model.Player2.Value) {
-				myTile.GetComponentInChildren<SpriteRenderer> ().sprite = app.model.Player2.Sign;
+				tiles [tile].GetComponentInChildren<SpriteRenderer> ().sprite = app.model.Player2.Sign;
+				tiles [tile].GetComponent<MyTile> ().value = app.model.Player1.Value;
 			} 
 
 			else {
-				myTile.GetComponentInChildren<SpriteRenderer> ().sprite = blankSprite;
+				tiles [tile].GetComponentInChildren<SpriteRenderer> ().sprite = blankSprite;
+				tiles [tile].GetComponent<MyTile> ().value = 0;
 			}
 		}
 	}
