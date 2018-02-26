@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class GameModel : GameElement {
 
-	public int[] Board;
-	public Player Player1;
-	public Player Player2;
-	public Player NextMove;
-	public int[] Score;
-	public int P1 = 1;
-	public int P2 = 2;
+	internal int[] Board;
+	internal Player Player1;
+	internal Player Player2;
+	internal Player NextMove;
+	internal int TotalMoves;
+	internal const int P1 = 1;
+	internal const int P2 = (3 * P1 + 1); //this helps with calculating if a player won
 
 	public int[][] Lines = new int[][]
 	{
@@ -23,8 +23,6 @@ public class GameModel : GameElement {
 		new int[] {0,4,8},
 		new int[] {2,4,6},
 	};
-
-	public int TotalMoves;
 
 	// Use this for initialization
 	void Start () {

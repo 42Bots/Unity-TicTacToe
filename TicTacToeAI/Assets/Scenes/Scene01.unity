@@ -424,11 +424,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae979372b6d2d5f479fac3a695bc53d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Board: 
-  Score: 
-  P1: 1
-  P2: 4
-  TotalMoves: 0
 --- !u!1 &1736348901
 GameObject:
   m_ObjectHideFlags: 0
